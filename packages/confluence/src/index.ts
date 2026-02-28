@@ -136,4 +136,84 @@ server.tool('confluence_searchSpace',
     return formatToolResponse(result);
   });
 
+server.tool(
+  "confluence_deletePage",
+  `Delete a page in ${confluenceInstanceType}`,
+  confluenceToolSchemas.deleteContent,
+  async ({ contentId, status }) => {
+    const result = await confluenceService.deleteContent(contentId, status);
+    return formatToolResponse(result);
+  }
+);
+
+server.tool(
+  "confluence_getPageChildren",
+  `Get child pages of a page in ${confluenceInstanceType}`,
+  confluenceToolSchemas.getPageChildren,
+  async ({ contentId, limit, start, expand }) => {
+    const result = await confluenceService.getPageChildren(contentId, limit, start, expand);
+    return formatToolResponse(result);
+  }
+);
+
+server.tool(
+  "confluence_getLabels",
+  `Get labels of a page in ${confluenceInstanceType}`,
+  confluenceToolSchemas.getLabels,
+  async ({ contentId, prefix, limit, start }) => {
+    const result = await confluenceService.getLabels(contentId, prefix, limit, start);
+    return formatToolResponse(result);
+  }
+);
+
+server.tool(
+  "confluence_addLabel",
+  `Add a label to a page in ${confluenceInstanceType}`,
+  confluenceToolSchemas.addLabel,
+  async ({ contentId, labelName, prefix }) => {
+    const result = await confluenceService.addLabel(contentId, labelName, prefix);
+    return formatToolResponse(result);
+  }
+);
+
+server.tool(
+  "confluence_getComments",
+  `Get comments of a page in ${confluenceInstanceType}`,
+  confluenceToolSchemas.getComments,
+  async ({ contentId, limit, start, expand, depth }) => {
+    const result = await confluenceService.getComments(contentId, limit, start, expand, depth);
+    return formatToolResponse(result);
+  }
+);
+
+server.tool(
+  "confluence_addComment",
+  `Add a comment to a page in ${confluenceInstanceType}`,
+  confluenceToolSchemas.addComment,
+  async ({ contentId, body, parentCommentId }) => {
+    const result = await confluenceService.addComment(contentId, body, parentCommentId);
+    return formatToolResponse(result);
+  }
+);
+
+server.tool(
+  "confluence_getAttachments",
+  `Get attachments of a page in ${confluenceInstanceType}`,
+  confluenceToolSchemas.getAttachments,
+  async ({ contentId, filename, mediaType, limit, start, expand }) => {
+    const result = await confluenceService.getAttachments(contentId, filename, mediaType, limit, start, expand);
+    return formatToolResponse(result);
+  }
+);
+
+server.tool(
+  "confluence_deleteAttachment",
+  `Delete an attachment from a page in ${confluenceInstanceType}`,
+  confluenceToolSchemas.deleteAttachment,
+  async ({ contentId, attachmentId }) => {
+    const result = await confluenceService.deleteAttachment(contentId, attachmentId);
+    return formatToolResponse(result);
+  }
+);
+
 await connectServer(server);
